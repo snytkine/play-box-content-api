@@ -28,6 +28,7 @@ class ScalaApplication @Inject()(wsClient: WSClient,
   val file = new File(".", "README")
   val clientId = config.getString("client.id").get
   val clientSecret = config.getString("client.secret").get
+  val boxLogin = config.getString("client.login").get
   val redirectUri = "http://localhost:9000/authorize"
 
   private val random = new SecureRandom()
@@ -35,7 +36,6 @@ class ScalaApplication @Inject()(wsClient: WSClient,
 
 
   def index = Action.async { implicit request =>
-    val boxLogin = "will.sargent@lightbend.com"
     val nonce = generateNonce(boxLogin)
     val key = generateKey(nonce)
 
